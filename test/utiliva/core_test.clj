@@ -99,6 +99,7 @@
 (def coll-3 (map #(if (even? %) (inc %) (dec %)) (range 1000)))
 (def coll-4 (map #(if (even? %) (inc %) %) (range 1000)))
 (def coll-5 (map #(if (zero? (mod % 3)) (inc %) (dec %)) (range 1000)))
+(def coll-6 (map #(if (even? %) % nil) (range 100)))
 (deftest unit:piecewise-partition
   (are [x] (= x coll-3)
     (c/piecewise-map even? {true inc false dec} (range 1000))
@@ -130,7 +131,7 @@
     (c/piecewise-pmap #(mod % 3) {:default dec 0 inc} ())
     (c/partition-map #(mod % 3) {:default #(map dec %) 0 #(map inc %)} ())
     (c/partition-pmap #(mod % 3) {:default #(map dec %) 0 #(map inc %)} ()))
-  (are [x] (= coll-0 x)
+  (are [x] (= coll-6 x)
     (c/partition-map even? {false (constantly ())} (range 100))
     (c/partition-map even? {false (constantly nil)} (range 100))
     (c/partition-pmap even? {false (constantly ())} (range 100))

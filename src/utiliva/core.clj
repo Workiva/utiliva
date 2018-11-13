@@ -343,9 +343,9 @@
      coll
      (let [len (count coll)
            arr (make-array Object len)
-           rmap (group-by (zip-from (range))
-                          (comp pred val)
-                          coll)
+           rmap (group-by-mutable (zip-from (range))
+                                  (comp pred val)
+                                  coll)
            fdefault (get fmap :default identity)
            results (pmap (fn [[r kvs]]
                            (when (not-empty kvs)
@@ -362,9 +362,9 @@
          ;; Can't assume any coll is finite
          len (count input)
          arr (make-array Object len)
-         rmap (group-by (zip-from (range))
-                         (comp pred first val)
-                         input)
+         rmap (group-by-mutable (zip-from (range))
+                                (comp pred first val)
+                                input)
          fdefault (get fmap :default (fn [id & _] id))
          results (pmap (fn [[r kvs]]
                          (when (not-empty kvs)

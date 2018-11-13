@@ -19,4 +19,5 @@
   :codox {:output-path "documentation"
           :namespaces :all}
 
-  :profiles {:dev [{:dependencies [[criterium "0.4.3"]]}]})
+  :profiles {:dev [{:dependencies [[criterium "0.4.3"]]
+                    :jvm-opts ^:replace ["-XX:TieredStopAtLevel=4"]}]})

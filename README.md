@@ -406,17 +406,14 @@ the desired expansion.
 
 [Squuids](src/utiliva/uuid.clj).
 
-## Contributing
+# Maintainers and Contributors
 
-1. Branch and PR to master
-2. Maintainers will review.
+## Active Maintainers
 
-Guidelines:
+  -
 
- * [generally good style](https://github.com/bbatsov/clojure-style-guide)
- * [clear commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
- * tests where appropriate
+## Previous Contributors
 
-#### Contributors
-Timothy Dean <[timothy.dean@workiva.com](mailto:timothy.dean@workiva.com)>  
-Houston King <[houston.king@workiva.com](houston.king@workiva.com)>
+  - Timothy Dean <timothy.dean@workiva.com>
+  - Houston King <houston.king@workiva.com>
+

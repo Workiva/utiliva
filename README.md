@@ -1,4 +1,4 @@
-# utiliva
+# utiliva [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/utiliva.svg)](https://clojars.org/com.workiva/utiliva)
 
 > *utiliva, compound Latin substantive adjective* - Things for doing useful stuff 
 

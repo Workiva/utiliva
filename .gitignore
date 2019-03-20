@@ -1,5 +1,7 @@
-pom.xml
-target/
+.DS_Store
 .lein-failures
 .nrepl-port
+.project
 bin/
+pom.xml
+target/

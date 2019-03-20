@@ -6,6 +6,7 @@
             [lein-codox "0.10.3"]]
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/core.cache "0.6.5"]
+                 [com.workiva/tesserae "1.0.0"]
                  [backtick "0.3.4"]]
 
   :source-paths      ["src"]

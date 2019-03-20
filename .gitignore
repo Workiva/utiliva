@@ -2,3 +2,4 @@ pom.xml
 target/
 .lein-failures
 .nrepl-port
+bin/

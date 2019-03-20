@@ -1,9 +1,4 @@
-FROM clojure:lein-alpine as build
-
-# Setup Leiningen Profile with Authentication
-COPY ./workivabuild.profiles.clj /root/.lein/profiles.clj
-ARG ARTIFACTORY_USER
-ARG ARTIFACTORY_PASS
+FROM clojure:lein-2.8.3-alpine as build
 
 # Copy in Source
 WORKDIR /build

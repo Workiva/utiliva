@@ -9,6 +9,10 @@
                  [com.workiva/tesserae "1.0.0"]
                  [backtick "0.3.4"]]
 
+  :deploy-repositories {"clojars"
+                        {:url "https://repo.clojars.org"
+                         :sign-releases false}}
+
   :source-paths      ["src"]
   :test-paths        ["test"]
 

@@ -1,4 +1,4 @@
-(defproject com.workiva/utiliva "0.1.1"
+(defproject com.workiva/utiliva "0.1.2"
   :description "Utilia Workivinarum"
   :url "https://github.com/Workiva/utiliva"
   :license {:name "Eclipse Public License 1.0"}

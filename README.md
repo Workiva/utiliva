@@ -1,9 +1,9 @@
 # utiliva [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/utiliva.svg)](https://clojars.org/com.workiva/utiliva)
 
-> *utiliva, compound Latin substantive adjective* - Things for doing useful stuff 
+> *utiliva, compound Latin substantive adjective* - Things for doing useful stuff
 
 ```
-[com.workiva/utiliva "0.1.0"]
+[com.workiva/utiliva "0.1.2"]
 ```
 ---
 
@@ -416,4 +416,3 @@ the desired expansion.
 
   - Timothy Dean <timothy.dean@workiva.com>
   - Houston King <houston.king@workiva.com>
-

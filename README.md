@@ -3,7 +3,7 @@
 > *utiliva, compound Latin substantive adjective* - Things for doing useful stuff
 
 ```
-[com.workiva/utiliva "0.1.2"]
+[com.workiva/utiliva "0.2.0"]
 ```
 ---
 

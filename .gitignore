@@ -5,3 +5,5 @@
 bin/
 pom.xml
 target/
+.classpath
+.settings/

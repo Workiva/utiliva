@@ -2,11 +2,6 @@
 
 > *utiliva, compound Latin substantive adjective* - Things for doing useful stuff
 
-```
-[com.workiva/utiliva "0.2.0"]
-```
----
-
 **Utiliva** is a collection of generalized doodads we've found useful in Workiva projects. The library is split into several namespaces: `alpha`, `comparator`, `control`, `core`, `macros`, `recursion`, `sorted-cache`, and `uuid`.
 
 ## > utiliva.core

@@ -1,6 +1,6 @@
 # utiliva [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/utiliva.svg)](https://clojars.org/com.workiva/utiliva)
 
-> *utiliva, compound Latin substantive adjective* - Things for doing useful stuff 
+> *utiliva, compound Latin substantive adjective* - Things for doing useful stuff
 
 **Utiliva** is a collection of generalized doodads we've found useful in Workiva projects. The library is split into several namespaces: `alpha`, `comparator`, `control`, `core`, `macros`, `recursion`, `sorted-cache`, and `uuid`.
 
@@ -411,4 +411,3 @@ the desired expansion.
 
   - Timothy Dean <timothy.dean@workiva.com>
   - Houston King <houston.king@workiva.com>
-

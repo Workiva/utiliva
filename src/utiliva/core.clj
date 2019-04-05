@@ -14,7 +14,7 @@
 
 (ns utiliva.core
   (:import [clojure.lang MapEntry IDeref]
-           [java.util PriorityQueue])
+           [java.util PriorityQueue LinkedList])
   (:refer-clojure :exclude [keep group-by]))
 
 ;; https://gist.github.com/galdre/e1851f73f0de9d6ebbf847c91d908f5d
@@ -251,6 +251,39 @@
                                       x more))
             coll colls))))
 
+(defn ^:private group-by-mutable
+  "Behaves just like utiliva.core/group-by, but returns a map with linked-lists
+  rather than vectors as values."
+  ([f coll]
+   (persistent!
+    (reduce
+     (fn [ret x]
+       (let [k (f x)
+             pre-existing (get ret k)
+             ll (or pre-existing
+                    (LinkedList.))]
+         (.add ^LinkedList ll ^Object x)
+         (if-not pre-existing
+           (assoc! ret k ll)
+           ret)))
+     (transient {}) coll)))
+  ([xform f coll]
+   (persistent!
+    (transduce xform
+               (fn
+                 ([ret] ret)
+                 ([ret x]
+                  (let [k (f x)
+                        pre-existing (get ret k)
+                        ll (or pre-existing
+                               (LinkedList.))]
+                    (.add ^LinkedList ll ^Object x)
+                    (if-not pre-existing
+                      (assoc! ret k ll)
+                      ret))))
+               (transient {})
+               coll))))
+
 (defn partition-map
   "Similar to piecewise-map. This partitions the collection by the result of (pred x) for
   each x in coll, then applies the functions in fmap directly to the partitions whole,
@@ -263,26 +296,37 @@
   ([pred fmap coll]
    (if (empty? coll)
      coll
-     (let [rmap (group-by (zip-from (range)) (comp pred val) coll)
-           fdefault (get fmap :default identity)]
-       (->> rmap
-            (sequence (map (fn [[r kvs]]
-                             (let [res ((if-let [f (fmap r)] f fdefault)
-                                        (vals kvs))]
-                               (sequence (zip-from (keys kvs)) res)))))
-            (merge-sorted-by key)
-            vals))))
+     (let [len (count coll)
+           arr (make-array Object len)
+           rmap (group-by-mutable
+                 (zip-from (range)) (comp pred val) coll)
+           fdefault (get fmap :default identity)
+           results (sequence (map (fn [[r kvs]]
+                                    (let [res ((if-let [f (fmap r)] f fdefault)
+                                               (vals kvs))]
+                                      (sequence (zip-from (keys kvs)) res))))
+                             rmap)]
+       (doseq [result results]
+         (doseq [item result]
+           (aset ^"[Ljava.lang.Object;" arr ^long (key item) ^Object (val item))))
+       (seq arr))))
   ([pred fmap coll & colls]
-   (let [rmap (group-by (zip-from (range)) (comp pred first val) (apply map list coll colls))
-         fdefault (get fmap :default (fn [id & _] id))]
-     (->> rmap
-          (sequence (map (fn [[r kvs]]
-                           (let [res (apply (if-let [f (fmap r)] f fdefault)
-                                            (apply map list (vals kvs)))]
-                             (sequence (zip-from (keys kvs))
-                                       res)))))
-          (merge-sorted-by key)
-          vals))))
+   (let [input (apply map list coll colls)
+         ;; Can't assume any coll is finite
+         len (count input)
+         arr (make-array Object len)
+         rmap (group-by-mutable (zip-from (range)) (comp pred first val) input)
+         fdefault (get fmap :default (fn [id & _] id))
+         results (sequence (map (fn [[r kvs]]
+                                  (let [res (apply (if-let [f (fmap r)] f fdefault)
+                                                   (apply map list (vals kvs)))]
+                                    (sequence (zip-from (keys kvs))
+                                              res))))
+                           rmap)]
+     (doseq [result results
+             item result]
+       (aset ^"[Ljava.lang.Object;" arr (key item) ^Object (val item)))
+     (seq arr))))
 
 (defn partition-pmap
   "Similar to piecewise-map. This partitions the collection by the result of (pred x) for
@@ -297,35 +341,42 @@
   ([pred fmap coll]
    (if (empty? coll)
      coll
-     (let [rmap (group-by (zip-from (range))
-                           (comp pred val)
-                           coll)
-           fdefault (get fmap :default identity)]
-       (->> rmap 
-            (pmap (fn [[r kvs]]
-                    (when (not-empty kvs)
-                      (let [res ((if-let [f (fmap r)] f fdefault)
-                                 (vals kvs))]
-                        (sequence (zip-from (keys kvs))
-                                  res)))))
-            (sequence cat)
-            (sort-by key)
-            vals))))
+     (let [len (count coll)
+           arr (make-array Object len)
+           rmap (group-by-mutable (zip-from (range))
+                                  (comp pred val)
+                                  coll)
+           fdefault (get fmap :default identity)
+           results (pmap (fn [[r kvs]]
+                           (when (not-empty kvs)
+                             (let [res ((if-let [f (fmap r)] f fdefault)
+                                        (vals kvs))]
+                               (sequence (zip-from (keys kvs)) res))))
+                         rmap)]
+       (doseq [result results
+               item result]
+         (aset ^"[Ljava.lang.Object;" arr (key item) ^Object (val item)))
+       (seq arr))))
   ([pred fmap coll & colls]
-   (let [rmap (group-by (zip-from (range))
-                         (comp pred first val)
-                         (apply map list coll colls))
-         fdefault (get fmap :default (fn [id & _] id))]
-     (->> rmap
-          (pmap (fn [[r kvs]]
-                  (when (not-empty kvs)
-                    (let [res (apply (if-let [f (fmap r)] f fdefault)
-                                     (apply map list (vals kvs)))]
-                      (sequence (zip-from (keys kvs))
-                                res)))))
-          (sequence cat)
-          (sort-by key)
-          vals))))
+   (let [input (apply map list coll colls)
+         ;; Can't assume any coll is finite
+         len (count input)
+         arr (make-array Object len)
+         rmap (group-by-mutable (zip-from (range))
+                                (comp pred first val)
+                                input)
+         fdefault (get fmap :default (fn [id & _] id))
+         results (pmap (fn [[r kvs]]
+                         (when (not-empty kvs)
+                           (let [res (apply (if-let [f (fmap r)] f fdefault)
+                                            (apply map list (vals kvs)))]
+                             (sequence (zip-from (keys kvs))
+                                       res))))
+                       rmap)]
+     (doseq [result results
+             item result]
+       (aset ^"[Ljava.lang.Object;" arr (key item) ^Object (val item)))
+     (seq arr))))
 
 (defn reduce-indexed
   "Similar to map-indexed. The reducing function should take args [res idx val].

@@ -19,44 +19,44 @@
   ;; copying & extending LRU impl from clojure.core.cache
   c/CacheProtocol
   (lookup [_ item]
-    (get scache item))
+          (get scache item))
   (lookup [_ item not-found]
-    (get scache item not-found))
+          (get scache item not-found))
   (has? [_ item]
-    (contains? scache item))
+        (contains? scache item))
   (hit [_ item]
-    (let [tick+ (inc tick)]
-      (SortedLRUCache. scache
-                 (if (contains? scache item)
-                   (assoc lru item tick+)
-                   lru)
-                 tick+
-                 limit)))
+       (let [tick+ (inc tick)]
+         (SortedLRUCache. scache
+                          (if (contains? scache item)
+                            (assoc lru item tick+)
+                            lru)
+                          tick+
+                          limit)))
   (miss [_ item result]
-    (let [tick+ (inc tick)]
-      (if (>= (count lru) limit)
-        (let [k (if (contains? lru item)
-                  item
-                  (first (peek lru))) ;; minimum-key, maybe evict case
-              c (-> scache (dissoc k) (assoc item result))
-              l (-> lru (dissoc k) (assoc item tick+))]
-          (SortedLRUCache. c l tick+ limit))
-        (SortedLRUCache. (assoc scache item result)  ;; no change case
-                   (assoc lru item tick+)
-                   tick+
-                   limit))))
+        (let [tick+ (inc tick)]
+          (if (>= (count lru) limit)
+            (let [k (if (contains? lru item)
+                      item
+                      (first (peek lru))) ;; minimum-key, maybe evict case
+                  c (-> scache (dissoc k) (assoc item result))
+                  l (-> lru (dissoc k) (assoc item tick+))]
+              (SortedLRUCache. c l tick+ limit))
+            (SortedLRUCache. (assoc scache item result)  ;; no change case
+                             (assoc lru item tick+)
+                             tick+
+                             limit))))
   (evict [this key]
-    (let [v (get scache key ::miss)]
-      (if (= v ::miss)
-        this
-        (SortedLRUCache. (dissoc scache key)
-                   (dissoc lru key)
-                   (inc tick)
-                   limit))))
+         (let [v (get scache key ::miss)]
+           (if (= v ::miss)
+             this
+             (SortedLRUCache. (dissoc scache key)
+                              (dissoc lru key)
+                              (inc tick)
+                              limit))))
   (seed [_ base]
-    (let [init-cache (into (clojure.data.priority-map/priority-map)
-                           (for [[k _] base] [k 0]))]
-      (SortedLRUCache. base init-cache 0 limit)))
+        (let [init-cache (into (clojure.data.priority-map/priority-map)
+                               (for [[k _] base] [k 0]))]
+          (SortedLRUCache. base init-cache 0 limit)))
 
   Object
   (toString [_] (str scache \, \space lru \, \space tick \, \space limit))
@@ -66,7 +66,6 @@
   (comparator [this]           (.comparator scache))
   (entryKey [this k]           (.entryKey scache k))
   (seqFrom [this k ascending?] (.seqFrom scache k ascending?)))
-
 
 (defn sorted-lru-cache-factory
   "Same as clojure.core.cache/lru-cache-factory but the returned object

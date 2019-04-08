@@ -7,3 +7,7 @@ pom.xml
 target/
 .classpath
 .settings/
+/node_modules
+package-lock.json
+/_site
+Gemfile.lock

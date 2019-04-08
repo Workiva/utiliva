@@ -138,7 +138,7 @@ jobs:
       - run: lein deploy clojars
 
 workflows:
-  lazy_tables_workflow:
+  utiliva_workflow:
     jobs:
       - checkout_code:
           filters:

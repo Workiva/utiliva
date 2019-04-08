@@ -5,7 +5,8 @@
   :license {:name "Eclipse Public License 1.0"}
 
   :plugins [[lein-shell "0.5.0"]
-            [lein-codox "0.10.3"]]
+            [lein-codox "0.10.3"]
+            [lein-cljfmt "0.6.4"]]
 
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/core.cache "0.6.5"]
@@ -21,10 +22,12 @@
 
   :global-vars {*warn-on-reflection* true}
 
-  :aliases {"docs" ["do" "clean-docs," "codox"]
+  :aliases {"docs" ["do" "clean-docs," "with-profile" "docs" "codox"]
             "clean-docs" ["shell" "rm" "-rf" "./documentation"]}
 
-  :codox {:output-path "documentation"
-          :namespaces :all}
+  :codox {:metadata {:doc/format :markdown}
+          :themes [:rdash]
+          :output-path "documentation"}
 
-  :profiles {:dev [{:dependencies [[criterium "0.4.3"]]}]})
+  :profiles {:dev [{:dependencies [[criterium "0.4.3"]]}]
+             :docs {:dependencies [[codox-theme-rdash "0.1.2"]]}})

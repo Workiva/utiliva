@@ -4,7 +4,70 @@
 
 **Utiliva** is a collection of generalized doodads we've found useful in Workiva projects. The library is split into several namespaces: `alpha`, `comparator`, `control`, `core`, `macros`, `recursion`, `sorted-cache`, and `uuid`.
 
-## > utiliva.core
+<!-- toc -->
+
+  * [utiliva.core](#utilivacore)
+    + [Working with maps](#working-with-maps)
+      - [map-keys](#map-keys)
+      - [map-vals](#map-vals)
+      - [zip-to](#zip-to)
+      - [zip-from](#zip-from)
+    + [Forked/extended Clojure.core functions](#forkedextended-clojurecore-functions)
+      - [sorted-zipmap](#sorted-zipmap)
+      - [keep](#keep)
+      - [keepcat](#keepcat)
+      - [group-by](#group-by)
+      - [group-like](#group-like)
+      - [reduce-indexed](#reduce-indexed)
+      - [distinct-by](#distinct-by)
+    + [Merging sorted lists](#merging-sorted-lists)
+      - [merge-sorted](#merge-sorted)
+      - [merge-sorted-by](#merge-sorted-by)
+    + [Defining maps across collection subsets](#defining-maps-across-collection-subsets)
+      - [piecewise-map](#piecewise-map)
+      - [piecewise-pmap](#piecewise-pmap)
+      - [partition-map](#partition-map)
+      - [partition-pmap](#partition-pmap)
+    + [ThreadLocal](#threadlocal)
+      - [thread-local](#thread-local)
+      - [thread-local*](#thread-local)
+  * [utiliva.alpha](#utilivaalpha)
+  * [utiliva.comparator](#utilivacomparator)
+    + [Forked/extended from Clojure.core](#forkedextended-from-clojurecore)
+      - [<](#)
+      - [<=](#)
+      - [>](#)
+      - [>=](#)
+      - [min](#min)
+      - [max](#max)
+      - [min-by](#min-by)
+      - [max-by](#max-by)
+    + [Composing comparators](#composing-comparators)
+      - [compare-comp](#compare-comp)
+      - [seq-comparator](#seq-comparator)
+      - [proj-comparator](#proj-comparator)
+  * [utiliva.control](#utilivacontrol)
+      - [?->](#-)
+      - [?->>](#-)
+      - [->?->>](#--)
+      - [->>?->](#--)
+  * [utiliva.macros](#utilivamacros)
+      - [when-class](#when-class)
+      - [if-class](#if-class)
+  * [utiliva.recursion](#utilivarecursion)
+      - [*on-expansion*](#on-expansion)
+      - [recursive-expansion](#recursive-expansion)
+  * [utiliva.sorted-cache](#utilivasorted-cache)
+  * [utiliva.uuid](#utilivauuid)
+- [Maintainers and Contributors](#maintainers-and-contributors)
+  * [Active Maintainers](#active-maintainers)
+  * [Previous Contributors](#previous-contributors)
+
+<!-- tocstop -->
+
+<!-- topstop -->
+
+## utiliva.core
 
 ### Working with maps
 
@@ -202,11 +265,11 @@ thread-local objects.
 Non-macro version of `thread-local`.
 ```
 
-## > utiliva.alpha
+## utiliva.alpha
 
 A [few utilities](src/utiliva/alpha.clj) that have been useful but probably have much room for improvement.
 
-## > utiliva.comparator
+## utiliva.comparator
 
 All things comparator.
 
@@ -308,7 +371,7 @@ Example:
 ;=1
 ```
 
-## > utiliva.control
+## utiliva.control
 
 Control forms, at the moment consisting in just a few threading macros.
 
@@ -350,7 +413,7 @@ Like ?->, but threads the argument through the conditions as
 though with ->>, and through the expressions as though with ->.
 ```
 
-## > utiliva.macros
+## utiliva.macros
 
 A handful of utilities we've used when writing macros. The only truly notable ones are these two gems (i.e., complete hacks):
 
@@ -371,7 +434,7 @@ to the form in the `then` clause; otherwise, it expands to the
 form in the `else` clause.
 ```
 
-## > utiliva.recursion
+## utiliva.recursion
 
 A simple implementation of recursive expansion. Rebinding `utiliva.recursion/*on-expansion*` will let you perform side-effects at each iteration of the expansion.
 
@@ -393,11 +456,11 @@ expander should be a function that takes the input and produces
 the desired expansion.
 ```
 
-## > utiliva.sorted-cache
+## utiliva.sorted-cache
 
 `clojure.core.cache` produces caches with map semantics. This namespace provides an implementation of an lru-cache that has sorted-map semantics.
 
-## > utiliva.uuid
+## utiliva.uuid
 
 [Squuids](src/utiliva/uuid.clj).
 

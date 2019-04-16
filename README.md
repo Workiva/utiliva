@@ -2,63 +2,63 @@
 
 > *utiliva, compound Latin substantive adjective* - Things for doing useful stuff
 
-**Utiliva** is a collection of generalized doodads we've found useful in Workiva projects. The library is split into several namespaces: `alpha`, `comparator`, `control`, `core`, `macros`, `recursion`, `sorted-cache`, and `uuid`.
-
 <!-- toc -->
 
-  * [utiliva.core](#utilivacore)
-    + [Working with maps](#working-with-maps)
-      - [map-keys](#map-keys)
-      - [map-vals](#map-vals)
-      - [zip-to](#zip-to)
-      - [zip-from](#zip-from)
-    + [Forked/extended Clojure.core functions](#forkedextended-clojurecore-functions)
-      - [sorted-zipmap](#sorted-zipmap)
-      - [keep](#keep)
-      - [keepcat](#keepcat)
-      - [group-by](#group-by)
-      - [group-like](#group-like)
-      - [reduce-indexed](#reduce-indexed)
-      - [distinct-by](#distinct-by)
-    + [Merging sorted lists](#merging-sorted-lists)
-      - [merge-sorted](#merge-sorted)
-      - [merge-sorted-by](#merge-sorted-by)
-    + [Defining maps across collection subsets](#defining-maps-across-collection-subsets)
-      - [piecewise-map](#piecewise-map)
-      - [piecewise-pmap](#piecewise-pmap)
-      - [partition-map](#partition-map)
-      - [partition-pmap](#partition-pmap)
-    + [ThreadLocal](#threadlocal)
-      - [thread-local](#thread-local)
-      - [thread-local*](#thread-local)
-  * [utiliva.alpha](#utilivaalpha)
-  * [utiliva.comparator](#utilivacomparator)
-    + [Forked/extended from Clojure.core](#forkedextended-from-clojurecore)
-      - [<](#)
-      - [<=](#)
-      - [>](#)
-      - [>=](#)
-      - [min](#min)
-      - [max](#max)
-      - [min-by](#min-by)
-      - [max-by](#max-by)
-    + [Composing comparators](#composing-comparators)
-      - [compare-comp](#compare-comp)
-      - [seq-comparator](#seq-comparator)
-      - [proj-comparator](#proj-comparator)
-  * [utiliva.control](#utilivacontrol)
-      - [?->](#-)
-      - [?->>](#-)
-      - [->?->>](#--)
-      - [->>?->](#--)
-  * [utiliva.macros](#utilivamacros)
-      - [when-class](#when-class)
-      - [if-class](#if-class)
-  * [utiliva.recursion](#utilivarecursion)
-      - [*on-expansion*](#on-expansion)
-      - [recursive-expansion](#recursive-expansion)
-  * [utiliva.sorted-cache](#utilivasorted-cache)
-  * [utiliva.uuid](#utilivauuid)
+- [Overview](#overview)
+- [API Documentation](#api-documentation)
+- [utiliva.core](#utilivacore)
+  * [Working with maps](#working-with-maps)
+    + [map-keys](#map-keys)
+    + [map-vals](#map-vals)
+    + [zip-to](#zip-to)
+    + [zip-from](#zip-from)
+  * [Forked/extended Clojure.core functions](#forkedextended-clojurecore-functions)
+    + [sorted-zipmap](#sorted-zipmap)
+    + [keep](#keep)
+    + [keepcat](#keepcat)
+    + [group-by](#group-by)
+    + [group-like](#group-like)
+    + [reduce-indexed](#reduce-indexed)
+    + [distinct-by](#distinct-by)
+  * [Merging sorted lists](#merging-sorted-lists)
+    + [merge-sorted](#merge-sorted)
+    + [merge-sorted-by](#merge-sorted-by)
+  * [Defining maps across collection subsets](#defining-maps-across-collection-subsets)
+    + [piecewise-map](#piecewise-map)
+    + [piecewise-pmap](#piecewise-pmap)
+    + [partition-map](#partition-map)
+    + [partition-pmap](#partition-pmap)
+  * [ThreadLocal](#threadlocal)
+    + [thread-local](#thread-local)
+    + [thread-local*](#thread-local)
+- [utiliva.alpha](#utilivaalpha)
+- [utiliva.comparator](#utilivacomparator)
+  * [Forked/extended from Clojure.core](#forkedextended-from-clojurecore)
+    + [<](#)
+    + [<=](#)
+    + [>](#)
+    + [>=](#)
+    + [min](#min)
+    + [max](#max)
+    + [min-by](#min-by)
+    + [max-by](#max-by)
+  * [Composing comparators](#composing-comparators)
+    + [compare-comp](#compare-comp)
+    + [seq-comparator](#seq-comparator)
+    + [proj-comparator](#proj-comparator)
+- [utiliva.control](#utilivacontrol)
+    + [?->](#-)
+    + [?->>](#-)
+    + [->?->>](#--)
+    + [->>?->](#--)
+- [utiliva.macros](#utilivamacros)
+    + [when-class](#when-class)
+    + [if-class](#if-class)
+- [utiliva.recursion](#utilivarecursion)
+    + [*on-expansion*](#on-expansion)
+    + [recursive-expansion](#recursive-expansion)
+- [utiliva.sorted-cache](#utilivasorted-cache)
+- [utiliva.uuid](#utilivauuid)
 - [Maintainers and Contributors](#maintainers-and-contributors)
   * [Active Maintainers](#active-maintainers)
   * [Previous Contributors](#previous-contributors)
@@ -66,6 +66,14 @@
 <!-- tocstop -->
 
 <!-- topstop -->
+
+## Overview
+
+**Utiliva** is a collection of generalized doodads we've found useful in Workiva projects. The library is split into several namespaces: `alpha`, `comparator`, `control`, `core`, `macros`, `recursion`, `sorted-cache`, and `uuid`.
+
+## API Documentation
+
+[Clojure API documentation can be found here.](/documentation/clojure/index.html)
 
 ## utiliva.core
 
@@ -464,13 +472,13 @@ the desired expansion.
 
 [Squuids](src/utiliva/uuid.clj).
 
-# Maintainers and Contributors
+## Maintainers and Contributors
 
-## Active Maintainers
+### Active Maintainers
 
   -
 
-## Previous Contributors
+### Previous Contributors
 
   - Timothy Dean <timothy.dean@workiva.com>
   - Houston King <houston.king@workiva.com>

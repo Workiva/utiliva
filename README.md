@@ -1,62 +1,60 @@
-# utiliva [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/utiliva.svg)](https://clojars.org/com.workiva/utiliva)
+# utiliva [![Clojars Project](https://img.shields.io/clojars/v/com.workiva/utiliva.svg)](https://clojars.org/com.workiva/utiliva) [![CircleCI](https://circleci.com/gh/Workiva/utiliva/tree/master.svg?style=svg)](https://circleci.com/gh/Workiva/utiliva/tree/master)
 
 > *utiliva, compound Latin substantive adjective* - Things for doing useful stuff
 
 <!-- toc -->
 
-- [Overview](#overview)
-- [API Documentation](#api-documentation)
 - [utiliva.core](#utilivacore)
   * [Working with maps](#working-with-maps)
-    + [map-keys](#map-keys)
-    + [map-vals](#map-vals)
-    + [zip-to](#zip-to)
-    + [zip-from](#zip-from)
+    + [`map-keys`](#map-keys)
+    + [`map-vals`](#map-vals)
+    + [`zip-to`](#zip-to)
+    + [`zip-from`](#zip-from)
   * [Forked/extended Clojure.core functions](#forkedextended-clojurecore-functions)
-    + [sorted-zipmap](#sorted-zipmap)
-    + [keep](#keep)
-    + [keepcat](#keepcat)
-    + [group-by](#group-by)
-    + [group-like](#group-like)
-    + [reduce-indexed](#reduce-indexed)
-    + [distinct-by](#distinct-by)
+    + [`sorted-zipmap`](#sorted-zipmap)
+    + [`keep`](#keep)
+    + [`keepcat`](#keepcat)
+    + [`group-by`](#group-by)
+    + [`group-like`](#group-like)
+    + [`reduce-indexed`](#reduce-indexed)
+    + [`distinct-by`](#distinct-by)
   * [Merging sorted lists](#merging-sorted-lists)
-    + [merge-sorted](#merge-sorted)
-    + [merge-sorted-by](#merge-sorted-by)
+    + [`merge-sorted`](#merge-sorted)
+    + [`merge-sorted-by`](#merge-sorted-by)
   * [Defining maps across collection subsets](#defining-maps-across-collection-subsets)
-    + [piecewise-map](#piecewise-map)
-    + [piecewise-pmap](#piecewise-pmap)
-    + [partition-map](#partition-map)
-    + [partition-pmap](#partition-pmap)
+    + [`piecewise-map`](#piecewise-map)
+    + [`piecewise-pmap`](#piecewise-pmap)
+    + [`partition-map`](#partition-map)
+    + [`partition-pmap`](#partition-pmap)
   * [ThreadLocal](#threadlocal)
-    + [thread-local](#thread-local)
-    + [thread-local*](#thread-local)
+    + [`thread-local`](#thread-local)
+    + [`thread-local*`](#thread-local)
 - [utiliva.alpha](#utilivaalpha)
 - [utiliva.comparator](#utilivacomparator)
   * [Forked/extended from Clojure.core](#forkedextended-from-clojurecore)
-    + [<](#)
-    + [<=](#)
-    + [>](#)
-    + [>=](#)
-    + [min](#min)
-    + [max](#max)
-    + [min-by](#min-by)
-    + [max-by](#max-by)
+    + [`<`](#)
+    + [`<=`](#)
+    + [`>`](#)
+    + [`>=`](#)
+    + [`min`](#min)
+    + [`max`](#max)
+    + [`min-by`](#min-by)
+    + [`max-by`](#max-by)
   * [Composing comparators](#composing-comparators)
-    + [compare-comp](#compare-comp)
-    + [seq-comparator](#seq-comparator)
-    + [proj-comparator](#proj-comparator)
+    + [`compare-comp`](#compare-comp)
+    + [`seq-comparator`](#seq-comparator)
+    + [`proj-comparator`](#proj-comparator)
 - [utiliva.control](#utilivacontrol)
-    + [?->](#-)
-    + [?->>](#-)
-    + [->?->>](#--)
-    + [->>?->](#--)
+    + [`?->`](#-)
+    + [`?->>`](#-)
+    + [`->?->>`](#--)
+    + [`->>?->`](#--)
 - [utiliva.macros](#utilivamacros)
-    + [when-class](#when-class)
-    + [if-class](#if-class)
+    + [`when-class`](#when-class)
+    + [`if-class`](#if-class)
 - [utiliva.recursion](#utilivarecursion)
-    + [*on-expansion*](#on-expansion)
-    + [recursive-expansion](#recursive-expansion)
+    + [`*on-expansion*`](#on-expansion)
+    + [`recursive-expansion`](#recursive-expansion)
 - [utiliva.sorted-cache](#utilivasorted-cache)
 - [utiliva.uuid](#utilivauuid)
 - [Maintainers and Contributors](#maintainers-and-contributors)
@@ -81,7 +79,7 @@
 
 The [Plumbing library](https://github.com/plumatic/plumbing) is full of interesting and marvellous tools, but over time we found ourselves importing the library only for the utility functions `map-keys`, `map-vals`, `map-from-keys`, and `map-from-vals`. And these, while useful, are very inefficient when chained in a row: there is no sense in repeatedly tearing down and constructing multiple transitory maps. We have replaced our use of these functions with the following in `utiliva.core`:
 
-#### map-keys
+#### `map-keys`
 
 ```
 ([f] [f k->v])
@@ -90,7 +88,7 @@ sequence of MapEntries. If you want a new map efficiently constructed,
 use the transducer form: (into {} (map-keys f) c).
 ```
 
-#### map-vals
+#### `map-vals`
 
 ```
 ([f] [f k->v])
@@ -99,7 +97,7 @@ sequence of MapEntries. If you want a new map efficiently constructed,
 use the transducer form: (into {} (map-vals f) c).
 ```
 
-#### zip-to
+#### `zip-to`
 
 ```
 [c]
@@ -108,7 +106,7 @@ Stateful transducer. Create with collection c. Returns a MapEntry seq
 is completed.
 ```
 
-#### zip-from
+#### `zip-from`
 
 ```
 [c]
@@ -119,7 +117,7 @@ is completed.
 
 ### Forked/extended Clojure.core functions
 
-#### sorted-zipmap
+#### `sorted-zipmap`
 
 ```
 ([keys vals] [fn keys vals])
@@ -127,7 +125,7 @@ Exactly like zipmap, except the resulting map is sorted. Optionally
 accepts a comparator. Motivation: faster than sorting after zipmap.
 ```
 
-#### keep
+#### `keep`
 
 ```
 ([f] [f coll] [f coll & colls])
@@ -138,14 +136,14 @@ Differs from clojure.core/keep in that it can work with multiple
 collections the way `map` can.
 ```
 
-#### keepcat
+#### `keepcat`
 
 ```
 ([] [f] [f & colls])
 mapcat : map :: keepcat : keep
 ```
 
-#### group-by
+#### `group-by`
 
 ```
 ([f coll] [f cs])
@@ -154,7 +152,7 @@ argument:
 (group-by (map inc) even? (range 10))
 ```
 
-#### group-like
+#### `group-like`
 
 ```
 [flat grouped]
@@ -163,7 +161,7 @@ Groups a flat collection in the manner of a nested collection.
 ;=[(:a :b) (:c :d :e)]
 ```
 
-#### reduce-indexed
+#### `reduce-indexed`
 
 ```
 ([f coll] [f init coll])
@@ -173,7 +171,7 @@ More or less equivalent to (reduce-kv f (vec coll)), which relies
 on the fact that vectors are indexed.
 ```
 
-#### distinct-by
+#### `distinct-by`
 
 ```
 ([f] [f coll])
@@ -185,7 +183,7 @@ that are identical under the projection defined by `f`.
 
 The following experimental functions use priority queues to run "efficiently." For your use case, verify that they are actually faster than alternative approaches. YMMV.
 
-#### merge-sorted
+#### `merge-sorted`
 
 ```
 [cs]
@@ -193,7 +191,7 @@ Given any number of sorted collections, this returns a vector
 containing all the items from those collections, still sorted.
 ```
 
-#### merge-sorted-by
+#### `merge-sorted-by`
 
 ```
 [f cs]
@@ -204,7 +202,7 @@ still sorted under the projection defined by f.
 
 ### Defining maps across collection subsets
 
-#### piecewise-map
+#### `piecewise-map`
 
 ```
 ([pred fmap] [pred fmap coll] [pred fmap coll & colls])
@@ -217,14 +215,14 @@ If a function is not specified, defaults to the value of :default in
 fmap; if that is not defined, defaults to identity.
 ```
 
-#### piecewise-pmap
+#### `piecewise-pmap`
 
 ```
 ([pred fmap coll] [pred fmap coll & colls])
 piecewise-pmap : piecewise-map :: pmap : map
 ```
 
-#### partition-map
+#### `partition-map`
 
 ```
 ([pred fmap coll] [pred fmap coll & colls])
@@ -242,7 +240,7 @@ in fmap; if that is not defined, defaults to identity.
 Supplied functions are never called on an empty partition.
 ```
 
-#### partition-pmap
+#### `partition-pmap`
 
 ```
 ([pred fmap coll] [pred fmap coll & colls])
@@ -251,7 +249,7 @@ partition-pmap : partition-map :: pmap : map
 
 ### ThreadLocal
 
-#### thread-local
+#### `thread-local`
 
 ```
 [& body] Macro.
@@ -266,7 +264,7 @@ nothing about threads), you will of course lose some of the benefit of having
 thread-local objects.
 ```
 
-#### thread-local*
+#### `thread-local*`
 
 ```
 [generator-fn]
@@ -283,7 +281,7 @@ All things comparator.
 
 ### Forked/extended from Clojure.core
 
-#### <
+#### `<`
 
 ```
 ([cmp x] [cmp x y] [cmp x y & more])
@@ -291,7 +289,7 @@ Exactly like clojure.core/<, but requires an explicit comparator
 (of the -1/0/1 variety)
 ```
 
-#### <=
+#### `<=`
 
 ```
 ([cmp x] [cmp x y] [cmp x y & more])
@@ -299,7 +297,7 @@ Exactly like clojure.core/<=, but requires an explicit comparator
 (of the -1/0/1 variety)
 ```
 
-#### >
+#### `>`
 
 ```
 ([cmp x] [cmp x y] [cmp x y & more])
@@ -307,7 +305,7 @@ Exactly like clojure.core/>, but requires an explicit comparator
 (of the -1/0/1 variety)
 ```
 
-#### >=
+#### `>=`
 
 ```
 ([cmp x] [cmp x y] [cmp x y & more])
@@ -315,7 +313,7 @@ Exactly like clojure.core/>=, but requires an explicit comparator
 (of the -1/0/1 variety)
 ```
 
-#### min
+#### `min`
 
 ```
 ([cmp x] [cmp x y] [cmp x y & more])
@@ -323,7 +321,7 @@ Exactly like clojure.core/min, but requires an explicit comparator
 (of the -1/0/1 variety)
 ```
 
-#### max
+#### `max`
 
 ```
 ([cmp x] [cmp x y] [cmp x y & more])
@@ -331,7 +329,7 @@ Exactly like clojure.core/max, but requires an explicit comparator
 (of the -1/0/1 variety)
 ```
 
-#### min-by
+#### `min-by`
 
 ```
 ([cmp f x] [cmp f x y] [cmp f x y & more])
@@ -339,7 +337,7 @@ Exactly like clojure.core/min-key, but requires an explicit comparator
 (of the -1/0/1 variety)
 ```
 
-#### max-by
+#### `max-by`
 
 ```
 ([cmp f x] [cmp f x y] [cmp f x y & more])
@@ -349,14 +347,14 @@ Exactly like clojure.core/max-key, but requires an explicit comparator
 
 ### Composing comparators
 
-#### compare-comp
+#### `compare-comp`
 
 ```
 [& fns] Macro.
 Composes the comparators. Generates an inlined implementation.
 ```
 
-#### seq-comparator
+#### `seq-comparator`
 
 ```
 [& fs] Macro.
@@ -367,7 +365,7 @@ Example:
 ;=1
 ```
 
-#### proj-comparator
+#### `proj-comparator`
 
 ```
 [& projs-and-cmps]
@@ -383,7 +381,7 @@ Example:
 
 Control forms, at the moment consisting in just a few threading macros.
 
-#### ?->
+#### `?->`
 
 ```
 [expr & clauses] Macro.
@@ -394,7 +392,7 @@ Example:
 ;=6
 ```
 
-#### ?->>
+#### `?->>`
 
 ```
 [expr & clauses] Macro.
@@ -405,7 +403,7 @@ Example:
 ;=(:four)
 ```
 
-#### ->?->>
+#### `->?->>`
 
 ```
 [expr & clauses]
@@ -413,7 +411,7 @@ Like ?->>, but threads the argument through the conditions as
 though with ->, and through the expressions as though with ->>.
 ```
 
-#### ->>?->
+#### `->>?->`
 
 ```
 [expr & clauses]
@@ -425,7 +423,7 @@ though with ->>, and through the expressions as though with ->.
 
 A handful of utilities we've used when writing macros. The only truly notable ones are these two gems (i.e., complete hacks):
 
-#### when-class
+#### `when-class`
 
 ```
 [class & body]
@@ -433,7 +431,7 @@ When the class can be found in Java's loading path, this expands
 to the body; otherwise the body is suppressed.
 ```
 
-#### if-class
+#### `if-class`
 
 ```
 [class then else]
@@ -446,7 +444,7 @@ form in the `else` clause.
 
 A simple implementation of recursive expansion. Rebinding `utiliva.recursion/*on-expansion*` will let you perform side-effects at each iteration of the expansion.
 
-#### *on-expansion*
+#### `*on-expansion*`
 
 ```
 [expr result]
@@ -456,7 +454,7 @@ Rebind (see `binding`) to a side-effecting function to do
 things like trace the expansion process.
 ```
 
-#### recursive-expansion
+#### `recursive-expansion`
 
 ```
 ([expander input] [max-iter expander input])

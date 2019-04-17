@@ -15,6 +15,8 @@
 
   :deploy-repositories {"clojars"
                         {:url "https://repo.clojars.org"
+                         :username :env/clojars_username
+                         :password :env/clojars_password
                          :sign-releases false}}
 
   :source-paths      ["src"]
@@ -27,6 +29,13 @@
 
   :codox {:metadata {:doc/format :markdown}
           :themes [:rdash]
+          :html {:transforms [[:title]
+                              [:substitute [:title "Utiliva API Docs"]]
+                              [:span.project-version]
+                              [:substitute nil]
+                              [:pre.deps]
+                              [:substitute [:a {:href "https://clojars.org/com.workiva/utiliva"}
+                                            [:img {:src "https://img.shields.io/clojars/v/com.workiva/utiliva.svg"}]]]]}
           :output-path "documentation"}
 
   :profiles {:dev [{:dependencies [[criterium "0.4.3"]]}]

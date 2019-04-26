@@ -4,6 +4,8 @@
 
 <!-- toc -->
 
+- [Overview](#overview)
+- [API Documentation](#api-documentation)
 - [utiliva.core](#utilivacore)
   * [Working with maps](#working-with-maps)
     + [`map-keys`](#map-keys)

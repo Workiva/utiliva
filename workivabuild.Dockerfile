@@ -7,6 +7,9 @@ COPY . /build
 # Fetch Dependencies
 RUN lein deps
 
+# Lint
+RUN lein cljfmt check
+
 # Run Tests
 RUN lein test
 

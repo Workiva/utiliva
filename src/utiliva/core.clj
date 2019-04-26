@@ -1,4 +1,4 @@
-;; Copyright 2017-2018 Workiva Inc.
+;; Copyright 2017-2019 Workiva Inc.
 ;;
 ;; Licensed under the Eclipse Public License 1.0 (the "License");
 ;; you may not use this file except in compliance with the License.
@@ -168,7 +168,7 @@
   "Behaves just like clojure.core/group-by, but optionally takes an xform
   as first argument to transform the inputs before grouping:
   (group-by (map inc) even? (range 10))"
-  ([f coll]  
+  ([f coll]
    (persistent!
     (reduce
      (fn [ret x]
@@ -248,7 +248,7 @@
   ([pred fmap coll & colls]
    (let [default (or (fmap :default) (fn [x & _] x))]
      (apply pmap (fn [x & more] (apply (or (fmap (pred x)) default)
-                                      x more))
+                                       x more))
             coll colls))))
 
 (defn partition-map
@@ -298,10 +298,10 @@
    (if (empty? coll)
      coll
      (let [rmap (group-by (zip-from (range))
-                           (comp pred val)
-                           coll)
+                          (comp pred val)
+                          coll)
            fdefault (get fmap :default identity)]
-       (->> rmap 
+       (->> rmap
             (pmap (fn [[r kvs]]
                     (when (not-empty kvs)
                       (let [res ((if-let [f (fmap r)] f fdefault)
@@ -313,8 +313,8 @@
             vals))))
   ([pred fmap coll & colls]
    (let [rmap (group-by (zip-from (range))
-                         (comp pred first val)
-                         (apply map list coll colls))
+                        (comp pred first val)
+                        (apply map list coll colls))
          fdefault (get fmap :default (fn [id & _] id))]
      (->> rmap
           (pmap (fn [[r kvs]]
@@ -365,7 +365,7 @@
                           (recur (rest s) seen)
                           (cons x (step (rest s) (conj seen o)))))))
                   xs seen)))]
-          (step coll #{}))))
+     (step coll #{}))))
 
 (defn group-like
   "(group-like [:a :b :c :d :e] [[1 2] [3 4 5]])
@@ -402,4 +402,4 @@
 (defmacro locking-vswap!
   "Version of vswap! that locks the volatile."
   [vol f & args]
-    `(locking ~vol (vswap! ~vol ~f ~@args)))
+  `(locking ~vol (vswap! ~vol ~f ~@args)))

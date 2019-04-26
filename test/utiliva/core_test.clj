@@ -1,4 +1,4 @@
-;; Copyright 2017-2018 Workiva Inc.
+;; Copyright 2017-2019 Workiva Inc.
 ;;
 ;; Licensed under the Eclipse Public License 1.0 (the "License");
 ;; you may not use this file except in compliance with the License.
@@ -121,7 +121,7 @@
     (c/piecewise-map even? {true inc false dec} ())
     (c/piecewise-pmap even? {true inc false dec} ())
     (c/partition-map even? {true #(map inc %) false #(map dec %)} ())
-    (c/partition-pmap even? {true #(map inc %) false #(map dec %)} ())    
+    (c/partition-pmap even? {true #(map inc %) false #(map dec %)} ())
     (c/piecewise-map even? {true inc} ())
     (c/piecewise-pmap even? {true inc} ())
     (c/partition-map even? {true #(map inc %)} ())

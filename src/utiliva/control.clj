@@ -1,4 +1,4 @@
-;; Copyright 2017-2018 Workiva Inc.
+;; Copyright 2017-2019 Workiva Inc.
 ;;
 ;; Licensed under the Eclipse Public License 1.0 (the "License");
 ;; you may not use this file except in compliance with the License.
@@ -90,4 +90,4 @@
            ~@body)
          (finally
            (doseq [item# @~stack]
-                          (guard-fn# item#)))))))
+             (guard-fn# item#)))))))

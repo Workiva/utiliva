@@ -1,4 +1,4 @@
-(defproject com.workiva/utiliva "0.2.0"
+(defproject com.workiva/utiliva "0.2.1"
   :description "Utilia Workivinarum"
   :url "https://github.com/Workiva/utiliva"
 

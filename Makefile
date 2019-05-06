@@ -4,3 +4,6 @@ gen-docker:
 
 update-tocs:
 	./.circleci/scripts/update-tocs.sh
+
+github-pages:
+	bundle exec jekyll serve

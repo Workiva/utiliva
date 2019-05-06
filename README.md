@@ -2,10 +2,10 @@
 
 > *utiliva, compound Latin substantive adjective* - Things for doing useful stuff
 
-**Utiliva** is a collection of generalized doodads we've found useful in Workiva projects. The library is split into several namespaces: `alpha`, `comparator`, `control`, `core`, `macros`, `recursion`, `sorted-cache`, and `uuid`.
-
 <!-- toc -->
 
+- [Overview](#overview)
+- [API Documentation](#api-documentation)
 - [utiliva.core](#utilivacore)
   * [Working with maps](#working-with-maps)
     + [`map-keys`](#map-keys)
@@ -66,6 +66,14 @@
 <!-- tocstop -->
 
 <!-- topstop -->
+
+## Overview
+
+**Utiliva** is a collection of generalized doodads we've found useful in Workiva projects. The library is split into several namespaces: `alpha`, `comparator`, `control`, `core`, `macros`, `recursion`, `sorted-cache`, and `uuid`.
+
+## API Documentation
+
+[Clojure API documentation can be found here.](/documentation/clojure/index.html)
 
 ## utiliva.core
 
